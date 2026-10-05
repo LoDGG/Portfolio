@@ -30,8 +30,8 @@ const ecosystem = [
 	'Astro',
 	'LLM / RAG',
 	'MCP',
-	'PostgreSQL',
-	'Prometheus / Grafana',
+	'SQL',
+	'Grafana',
 	'APIs',
 ];
 ---
@@ -80,7 +80,7 @@ const ecosystem = [
 			<p class="eyebrow">{t.backgroundEyebrow}</p>
 			<h2 id="background">{t.background}</h2>
 		</div>
-		<p>{t.backgroundPlaceholder}</p>
+		<p>{t.backgroundSummary}</p>
 	</section>
 
 	<section class="page-section section-grid" aria-labelledby="ecosystem">
@@ -98,7 +98,10 @@ const ecosystem = [
 			<p class="eyebrow">{t.contactEyebrow}</p>
 			<h2 id="contact">{t.contact}</h2>
 		</div>
-		<p>{t.contactPlaceholder}</p>
+		<div class="hero-actions">
+			{site.identity.email && <a class="text-link" href={`mailto:${site.identity.email}`}>{t.email}</a>}
+			{site.identity.linkedin && <a class="text-link" href={site.identity.linkedin}>{t.linkedin}</a>}
+		</div>
 	</section>
 	<footer class="page-note"><p>{t.privacyNotice}</p></footer>
 </BaseLayout>

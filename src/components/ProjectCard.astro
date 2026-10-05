@@ -2,7 +2,7 @@
 import type { Project } from '../lib/projects';
 import type { Locale } from '../config/site';
 import { projectPath } from '../i18n/routes';
-import { useTranslations } from '../i18n/ui';
+import { contextLabel, useTranslations } from '../i18n/ui';
 
 interface Props {
 	project: Project;
@@ -25,7 +25,7 @@ const t = useTranslations(locale);
 const date = project.data.date?.getFullYear().toString();
 const Heading = headingLevel;
 const projectTypes = project.data.projectType.slice(0, 2);
-const contextParts = [date, project.data.context, ...projectTypes].filter(Boolean);
+const contextParts = [date, contextLabel(locale, project.data.context), ...projectTypes].filter(Boolean);
 const stackItems = project.data.stack.slice(0, stackLimit);
 const strongestMetric = project.data.metrics[0];
 const evidence = [

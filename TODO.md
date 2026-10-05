@@ -5,10 +5,8 @@
 # Next
 
 - Human visual review of the design checkpoint on laptop and mobile, especially first-viewport project visibility (browser rendering unavailable during implementation).
-- Write and refine English copy for the Monitoring case study.
-- Write and refine the French translation for the Monitoring case study.
 - Add approved screenshots or other visuals for the RAG case study, if available.
-- Create architecture diagrams / visuals for Monitoring; add further Agent/MCP visuals if useful and approved.
+- Add further approved case-study visuals if useful.
 - Add downloadable resume if explicitly approved.
 - Validate which public identity fields should be displayed.
 - Review all professional content for anonymization/confidentiality.
@@ -26,8 +24,6 @@
 # Open Questions
 
 - Exact public display name.
-- Public email or contact mechanism.
-- Whether LinkedIn should be exposed.
 - Whether GitHub profile should be exposed globally or only on relevant projects.
 - Whether a resume PDF should be publicly downloadable.
 - Whether to use a custom domain instead of the current GitHub Pages URL.
@@ -38,6 +34,9 @@
 
 # Done
 
+- Completed and published the EN/FR Monitoring case study with an anonymized OneView → Python → SQL → Grafana flow and a factual sizing-tool comparison.
+- Added the approved public email and LinkedIn links through centralized configuration; replaced the homepage background and contact placeholders in EN/FR.
+- Removed visible draft and identity placeholders from the public site and localized project context labels.
 - GitHub Pages base-path routing fixed for bilingual navigation, project links, and local assets.
 - Phase 1 foundation implemented.
 - Maintainable Astro source structure established.

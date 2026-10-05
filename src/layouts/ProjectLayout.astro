@@ -8,7 +8,7 @@ import ProjectStorySummary from '../components/ProjectStorySummary.astro';
 import BaseLayout from './BaseLayout.astro';
 import type { Locale } from '../config/site';
 import { localizedPath } from '../i18n/routes';
-import { useTranslations } from '../i18n/ui';
+import { contextLabel, useTranslations } from '../i18n/ui';
 import type { ProjectLanguageLinks } from '../lib/projects';
 
 interface Props {
@@ -21,7 +21,7 @@ const { project, locale, languageLinks } = Astro.props;
 const t = useTranslations(locale);
 const date = project.data.date?.getFullYear().toString();
 const confidentiality = project.data.confidentialityNote ?? (
-	project.data.confidential || project.data.anonymized ? 'Anonymized or confidential details omitted.' : undefined
+	project.data.confidential || project.data.anonymized ? t.confidentialityFallback : undefined
 );
 type EvidenceLink = { label: string; url: string };
 const evidenceLinks = [
@@ -48,7 +48,7 @@ const stackPreview = project.data.stack.slice(0, 4);
 	<section class="project-meta" aria-label={t.projectOverview}>
 		{project.data.role.length > 0 && <p><strong>{t.role}</strong><br />{project.data.role.join(' / ')}</p>}
 		{date && <p><strong>{t.date}</strong><br />{date}</p>}
-		{project.data.context && <p><strong>{t.context}</strong><br />{project.data.context}</p>}
+		{project.data.context && <p><strong>{t.context}</strong><br />{contextLabel(locale, project.data.context)}</p>}
 		{stackPreview.length > 0 && <p><strong>{t.stack}</strong><br />{stackPreview.join(' / ')}</p>}
 		{confidentiality && <p><strong>{t.confidentiality}</strong><br />{confidentiality}</p>}
 	</section>

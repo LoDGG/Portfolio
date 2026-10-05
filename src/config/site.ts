@@ -4,10 +4,10 @@ export const site = {
 	defaultLocale: 'en',
 	locales: ['en', 'fr'],
 	identity: {
-		publicName: 'Name pending',
+		publicName: 'Engineering portfolio',
 		headline: 'AI & Software Engineer',
-		email: undefined,
-		linkedin: undefined,
+		email: 'contact.mval@gmail.com',
+		linkedin: 'https://www.linkedin.com/in/valentin-mur',
 		github: undefined,
 		location: undefined,
 		resumeUrl: undefined,
