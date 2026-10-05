@@ -30,10 +30,10 @@
 - Which screenshots and diagrams can safely be public.
 - Exact anonymized wording for professional project context.
 - Agent/MCP: validate any progress beyond the initial fake Gmail environment and Gemini provider before describing real Gmail or additional provider readiness.
-- Agent/MCP: whether a public repository or shareable test evidence is approved, and its URL if so.
 
 # Done
 
+- Linked the EN/FR Agent/MCP case study to the approved public technical showcase repository, with an explicit reduced-scope note.
 - Completed and published the EN/FR Monitoring case study with an anonymized OneView → Python → SQL → Grafana flow and a factual sizing-tool comparison.
 - Added the approved public email and LinkedIn links through centralized configuration; replaced the homepage background and contact placeholders in EN/FR.
 - Removed visible draft and identity placeholders from the public site and localized project context labels.

@@ -37,6 +37,7 @@ stack:
   - "Structured tool use"
   - "Automated testing"
   - "Git"
+repository: "https://github.com/LoDGG/agent-mcp-showcase"
 confidential: false
 anonymized: false
 ---
@@ -97,3 +98,5 @@ Python 3.12+, the official MCP SDK, LLM APIs, agent architecture, structured too
 ## Status and limitations
 
 The engineering outcome is an explicit, bounded agent with tested behavior and separated provider and tool integrations. The evidence presented here covers the initial fake Gmail MCP environment. Real Gmail integration and any additional provider implementation need separate validation before claims about their readiness can be made.
+
+The public GitHub repository is a deliberately reduced showcase of the core agent/MCP architecture, not the complete private project. It uses synthetic email data and a deterministic fake provider.

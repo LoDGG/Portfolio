@@ -37,6 +37,7 @@ stack:
   - "Utilisation structurée d’outils"
   - "Tests automatisés"
   - "Git"
+repository: "https://github.com/LoDGG/agent-mcp-showcase"
 confidential: false
 anonymized: false
 ---
@@ -97,3 +98,5 @@ Python 3.12+, SDK MCP officiel, API LLM, architecture agent, utilisation structu
 ## État et limites
 
 Le résultat technique est un agent explicite et borné, au comportement testé, avec des intégrations séparées pour les providers et les outils. Les éléments présentés ici couvrent l’environnement MCP Gmail simulé initial. L’intégration à Gmail réel et toute implémentation de provider supplémentaire nécessitent une validation distincte avant de pouvoir qualifier leur niveau de maturité.
+
+Le dépôt GitHub public est un démonstrateur volontairement réduit de l’architecture agent/MCP, et non l’intégralité du projet privé. Il utilise des emails synthétiques et un provider simulé déterministe.
