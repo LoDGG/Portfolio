@@ -1,0 +1,29 @@
+---
+interface Props {
+	title: string;
+	eyebrow?: string;
+	body?: string;
+	items?: string[];
+}
+
+const { title, eyebrow, body, items = [] } = Astro.props;
+const hasContent = Boolean(body) || items.length > 0 || Astro.slots.has('default');
+---
+
+{
+	hasContent && (
+		<section class="case-section" aria-labelledby={Astro.props.title.toLowerCase().replaceAll(' ', '-')}>
+			<div class="section-header">
+				{eyebrow && <p class="eyebrow">{eyebrow}</p>}
+				<h2 id={title.toLowerCase().replaceAll(' ', '-')}>{title}</h2>
+			</div>
+			{body && <p>{body}</p>}
+			{items.length > 0 && (
+				<ul class="compact-list">
+					{items.map((item) => <li>{item}</li>)}
+				</ul>
+			)}
+			<slot />
+		</section>
+	)
+}

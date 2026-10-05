@@ -1,0 +1,26 @@
+---
+import ProjectCard from '../../../components/ProjectCard.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../../i18n/ui';
+import { getProjects } from '../../../lib/projects';
+
+const locale = 'fr';
+const t = useTranslations(locale);
+const projects = await getProjects(locale);
+---
+
+<BaseLayout locale={locale} title={t.projects} alternatePath="/projects/">
+	<section class="hero">
+		<p class="eyebrow">{t.projects}</p>
+		<h1>{t.selectedWork}</h1>
+	</section>
+	{
+		projects.length > 0 ? (
+			<div class="project-list">
+				{projects.map((project) => <ProjectCard project={project} locale={locale} />)}
+			</div>
+		) : (
+			<p>{t.noProjects}</p>
+		)
+	}
+</BaseLayout>

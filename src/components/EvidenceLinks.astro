@@ -1,0 +1,24 @@
+---
+interface LinkItem {
+	label: string;
+	url: string;
+}
+
+interface Props {
+	links?: LinkItem[];
+}
+
+const { links = [] } = Astro.props;
+---
+
+{
+	links.length > 0 && (
+		<ul class="evidence-links">
+			{links.map((link) => (
+				<li>
+					<a class="text-link" href={link.url}>{link.label}</a>
+				</li>
+			))}
+		</ul>
+	)
+}

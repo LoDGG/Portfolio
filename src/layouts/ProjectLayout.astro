@@ -1,17 +1,35 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import EvidenceLinks from '../components/EvidenceLinks.astro';
+import MetricList from '../components/MetricList.astro';
+import ArchitectureDiagram from '../components/ArchitectureDiagram.astro';
+import ArchitectureFlow from '../components/ArchitectureFlow.astro';
+import ProjectStorySummary from '../components/ProjectStorySummary.astro';
 import BaseLayout from './BaseLayout.astro';
 import type { Locale } from '../config/site';
 import { localizedPath } from '../i18n/routes';
 import { useTranslations } from '../i18n/ui';
+import type { ProjectLanguageLinks } from '../lib/projects';
 
 interface Props {
 	project: CollectionEntry<'projects'>;
 	locale: Locale;
+	languageLinks: ProjectLanguageLinks;
 }
 
-const { project, locale } = Astro.props;
+const { project, locale, languageLinks } = Astro.props;
 const t = useTranslations(locale);
+const date = project.data.date?.getFullYear().toString();
+const confidentiality = project.data.confidentialityNote ?? (
+	project.data.confidential || project.data.anonymized ? 'Anonymized or confidential details omitted.' : undefined
+);
+type EvidenceLink = { label: string; url: string };
+const evidenceLinks = [
+	project.data.repository ? { label: t.sourceAvailable, url: project.data.repository } : undefined,
+	project.data.demo ? { label: t.demoAvailable, url: project.data.demo } : undefined,
+	...project.data.externalLinks,
+].filter((link): link is EvidenceLink => link !== undefined);
+const stackPreview = project.data.stack.slice(0, 4);
 ---
 
 <BaseLayout
@@ -19,20 +37,33 @@ const t = useTranslations(locale);
 	title={project.data.title}
 	description={project.data.summary}
 	alternatePath={`/projects/${project.data.slug}/`}
+	languageLinks={languageLinks}
 >
-	<a class="text-link" href={localizedPath(locale, '/projects/')}>{t.backToProjects}</a>
-	<section class="hero">
+	<a class="text-link back-link" href={localizedPath(locale, '/projects/')}>{t.backToProjects}</a>
+	<section class="project-hero">
 		<p class="eyebrow">{t.projectOverview}</p>
 		<h1>{project.data.title}</h1>
-		<p>{project.data.summary}</p>
+		<p class="lead">{project.data.summary}</p>
 	</section>
 	<section class="project-meta" aria-label={t.projectOverview}>
-		<p><strong>{t.role}</strong><br />{project.data.role}</p>
-		<p><strong>{t.year}</strong><br />{project.data.year}</p>
-		<p><strong>{t.stack}</strong><br />{project.data.stack.join(' / ')}</p>
-		<p><strong>{t.confidentiality}</strong><br />{project.data.confidentiality}</p>
+		{project.data.role.length > 0 && <p><strong>{t.role}</strong><br />{project.data.role.join(' / ')}</p>}
+		{date && <p><strong>{t.date}</strong><br />{date}</p>}
+		{project.data.context && <p><strong>{t.context}</strong><br />{project.data.context}</p>}
+		{stackPreview.length > 0 && <p><strong>{t.stack}</strong><br />{stackPreview.join(' / ')}</p>}
+		{confidentiality && <p><strong>{t.confidentiality}</strong><br />{confidentiality}</p>}
 	</section>
-	<section class="content-section">
+	{project.data.storySummary && <ProjectStorySummary locale={locale} summary={project.data.storySummary} />}
+	<MetricList metrics={project.data.metrics} />
+	<EvidenceLinks links={evidenceLinks} />
+	{project.data.architectureFlow && <ArchitectureFlow locale={locale} steps={project.data.architectureFlow} />}
+	{!project.data.architectureFlow && project.data.architectureDiagram && project.data.architectureDiagramAlt && (
+		<ArchitectureDiagram
+			src={project.data.architectureDiagram}
+			alt={project.data.architectureDiagramAlt}
+			caption={project.data.architectureDiagramCaption}
+		/>
+	)}
+	<section class="case-study-body">
 		<slot />
 	</section>
 </BaseLayout>

@@ -1,22 +1,37 @@
 ---
-import { languages, type Locale } from '../i18n/ui';
+import type { Locale } from '../config/site';
+import { languages, useTranslations } from '../i18n/ui';
 import { localizedPath } from '../i18n/routes';
+import type { ProjectLanguageLinks } from '../lib/projects';
 
 interface Props {
 	locale: Locale;
 	path?: string;
+	links?: Partial<ProjectLanguageLinks>;
 }
 
-const { locale, path = '/' } = Astro.props;
+const { locale, path = '/', links } = Astro.props;
+const t = useTranslations(locale);
 ---
 
 <nav class="language-switcher" aria-label="Language">
-	{Object.entries(languages).map(([code, label]) => (
-		<a
-			aria-current={code === locale ? 'page' : undefined}
-			href={localizedPath(code as Locale, path)}
-		>
-			{label}
-		</a>
-	))}
+	{
+		Object.entries(languages).map(([code, label]) => {
+			const targetLocale = code as Locale;
+			const languageLink = links?.[targetLocale];
+			const href = languageLink?.href ?? localizedPath(targetLocale, path);
+			const isMissing = languageLink?.available === false;
+
+			return (
+				<a
+					aria-current={targetLocale === locale ? 'page' : undefined}
+					aria-label={isMissing ? `${label}: ${t.unavailableTranslation}` : label}
+					href={href}
+				>
+					{label}
+					{isMissing && <span class="language-switcher__note"> {t.unavailableTranslation}</span>}
+				</a>
+			);
+		})
+	}
 </nav>

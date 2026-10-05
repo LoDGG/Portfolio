@@ -1,0 +1,9 @@
+---
+import HomePage from '../../components/HomePage.astro';
+import { getFeaturedProjects } from '../../lib/projects';
+
+const locale = 'fr';
+const projects = await getFeaturedProjects(locale);
+---
+
+<HomePage locale={locale} projects={projects} />

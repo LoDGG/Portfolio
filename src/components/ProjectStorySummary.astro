@@ -1,0 +1,37 @@
+---
+import type { Locale } from '../config/site';
+import type { CollectionEntry } from 'astro:content';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+	locale: Locale;
+	summary: NonNullable<CollectionEntry<'projects'>['data']['storySummary']>;
+}
+
+const { locale, summary } = Astro.props;
+const t = useTranslations(locale);
+const items = [
+	{ title: t.challenge, text: summary.challenge },
+	{ title: t.solution, text: summary.solution },
+	'outcome' in summary
+		? { title: t.outcome, text: summary.outcome }
+		: { title: t.impact, text: summary.impact },
+];
+---
+
+<div class="story-summary" aria-label={t.projectAtAGlance}>
+	{items.map((item) => <section><h2>{item.title}</h2><p>{item.text}</p></section>)}
+</div>
+
+<style>
+	.story-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: var(--space-8); background: var(--color-accent-subtle); border-top: 3px solid var(--color-accent); border-bottom: 1px solid var(--color-line); }
+	.story-summary section { padding: var(--space-6); }
+	.story-summary section + section { border-left: 1px solid var(--color-line); }
+	.story-summary h2 { margin: 0 0 var(--space-3); color: var(--color-accent); font: 600 var(--type-meta) var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
+	.story-summary p { margin: 0; }
+	@media (max-width: 48rem) {
+		.story-summary { grid-template-columns: 1fr; }
+		.story-summary section { padding: var(--space-4); }
+		.story-summary section + section { border-left: 0; border-top: 1px solid var(--color-line); }
+	}
+</style>

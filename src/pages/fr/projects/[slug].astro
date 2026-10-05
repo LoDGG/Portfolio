@@ -1,0 +1,32 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import ProjectLayout from '../../../layouts/ProjectLayout.astro';
+import { getProjectLanguageLinks, type ProjectLanguageLinks } from '../../../lib/projects';
+
+const locale = 'fr';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects', ({ data }) => data.locale === 'fr');
+	return Promise.all(
+		projects.map(async (project) => ({
+			params: { slug: project.data.slug },
+			props: {
+				project,
+				languageLinks: await getProjectLanguageLinks(project),
+			},
+		})),
+	);
+}
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+	languageLinks: ProjectLanguageLinks;
+}
+
+const { project, languageLinks } = Astro.props;
+const { Content } = await render(project);
+---
+
+<ProjectLayout project={project} locale={locale} languageLinks={languageLinks}>
+	<Content />
+</ProjectLayout>

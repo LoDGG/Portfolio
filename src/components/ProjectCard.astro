@@ -7,16 +7,47 @@ import { useTranslations } from '../i18n/ui';
 interface Props {
 	project: Project;
 	locale: Locale;
+	headingLevel?: 'h2' | 'h3';
+	stackLimit?: number;
+	showEvidence?: boolean;
+	spotlight?: boolean;
 }
 
-const { project, locale } = Astro.props;
+const {
+	project,
+	locale,
+	headingLevel = 'h2',
+	stackLimit = 4,
+	showEvidence = true,
+	spotlight = false,
+} = Astro.props;
 const t = useTranslations(locale);
+const date = project.data.date?.getFullYear().toString();
+const Heading = headingLevel;
+const projectTypes = project.data.projectType.slice(0, 2);
+const contextParts = [date, project.data.context, ...projectTypes].filter(Boolean);
+const stackItems = project.data.stack.slice(0, stackLimit);
+const strongestMetric = project.data.metrics[0];
+const evidence = [
+	strongestMetric ? `${strongestMetric.value} ${strongestMetric.label}` : undefined,
+	project.data.repository ? t.sourceAvailable : undefined,
+	project.data.demo ? t.demoAvailable : undefined,
+].filter(Boolean);
 ---
 
-<article class="project-card">
-	<p class="eyebrow">{project.data.year} / {project.data.role}</p>
-	<h2><a href={projectPath(locale, project.data.slug)}>{project.data.title}</a></h2>
+<article class:list={['project-card', { 'project-card--spotlight': spotlight }]}>
+	<div class="project-card__story">
+	{spotlight && <p class="eyebrow">{t.spotlightProject}</p>}
+	{contextParts.length > 0 && <p class="project-card__context">{contextParts.join(' / ')}</p>}
+	<Heading><a href={projectPath(locale, project.data.slug)}>{project.data.title}</a></Heading>
 	<p>{project.data.summary}</p>
-	<p class="project-card__meta">{project.data.stack.join(' / ')}</p>
-	<a class="text-link" href={projectPath(locale, project.data.slug)}>{t.viewProject}</a>
+	<a class="text-link" href={projectPath(locale, project.data.slug)}>{project.data.status === 'published' ? t.viewCaseStudy : t.viewProject}</a>
+	</div>
+	<div class="project-card__details">
+	{showEvidence && project.data.evidenceSummary && <p class="project-card__meta">{project.data.evidenceSummary}</p>}
+	{showEvidence && spotlight && strongestMetric ? (
+		<p class="project-card__impact"><strong>{strongestMetric.value}</strong><span>{strongestMetric.label}</span></p>
+	) : showEvidence && evidence.length > 0 && <p class="project-card__meta">{evidence.join(' / ')}</p>}
+	{stackItems.length > 0 && <p class="project-card__meta">{stackItems.join(' / ')}</p>}
+	</div>
 </article>

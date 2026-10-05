@@ -1,4 +1,5 @@
-import { defaultLocale, type Locale } from './ui';
+import type { Locale } from '../config/site';
+import { defaultLocale } from './ui';
 
 export function isLocale(value: string | undefined): value is Locale {
 	return value === 'en' || value === 'fr';

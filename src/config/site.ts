@@ -1,12 +1,17 @@
 export const site = {
-	name: 'Portfolio',
-	title: 'Portfolio',
-	description: 'Bilingual portfolio for selected software and product engineering work.',
+	title: 'AI & Software Engineering Portfolio',
+	description: 'Selected software, AI, automation, and infrastructure engineering work.',
 	defaultLocale: 'en',
 	locales: ['en', 'fr'],
-	author: {
-		displayName: 'Public display name pending',
-		contactLabel: 'Contact details pending',
+	identity: {
+		publicName: 'Name pending',
+		headline: 'AI & Software Engineer',
+		email: undefined,
+		linkedin: undefined,
+		github: undefined,
+		location: undefined,
+		resumeUrl: undefined,
+		links: [],
 	},
 	privacy: {
 		robots: 'noindex, nofollow',

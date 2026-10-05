@@ -1,0 +1,36 @@
+---
+interface Props {
+	src: string;
+	alt: string;
+	caption?: string;
+}
+
+const { src, alt, caption } = Astro.props;
+---
+
+<figure class="architecture-diagram">
+	<img src={src} alt={alt} width="500" height="768" loading="lazy" decoding="async" />
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+	.architecture-diagram {
+		width: min(100%, 31.25rem);
+		margin: 0 0 var(--space-8);
+	}
+
+	.architecture-diagram img {
+		display: block;
+		width: 100%;
+		height: auto;
+		background: var(--color-surface);
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius-md);
+	}
+
+	.architecture-diagram figcaption {
+		margin-top: var(--space-2);
+		color: var(--color-muted);
+		font-size: 0.9rem;
+	}
+</style>

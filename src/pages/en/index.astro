@@ -1,6 +1,6 @@
 ---
-import HomePage from '../components/HomePage.astro';
-import { getFeaturedProjects } from '../lib/projects';
+import HomePage from '../../components/HomePage.astro';
+import { getFeaturedProjects } from '../../lib/projects';
 
 const locale = 'en';
 const projects = await getFeaturedProjects(locale);
