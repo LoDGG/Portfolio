@@ -30,7 +30,7 @@
 - Whether LinkedIn should be exposed.
 - Whether GitHub profile should be exposed globally or only on relevant projects.
 - Whether a resume PDF should be publicly downloadable.
-- Hosting/domain choice.
+- Whether to use a custom domain instead of the current GitHub Pages URL.
 - Which screenshots and diagrams can safely be public.
 - Exact anonymized wording for professional project context.
 - Agent/MCP: validate any progress beyond the initial fake Gmail environment and Gemini provider before describing real Gmail or additional provider readiness.
@@ -38,6 +38,7 @@
 
 # Done
 
+- GitHub Pages base-path routing fixed for bilingual navigation, project links, and local assets.
 - Phase 1 foundation implemented.
 - Maintainable Astro source structure established.
 - Typed project Content Collection schema implemented.
